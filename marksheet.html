@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>jQueryExercise1</title>
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.css">
+    <script src="jquery.min.js"></script>
+    <script src="marksheet.js"></script>
+  </head>
+  <body>
+    <div class="jumbotron" style="border-bottom: 9px solid #f8f9fa !important;">
+      <h1 style="text-align:center;"> <b>XYZ SCHOOL</b> </h1>
+    </div>
+    <div>
+      <div class="button" style="text-align: center;">
+      <button type="button" class="btn btn-primary" name="button" id="add_record">Add Record</button>
+      </div>
+      <table class="table table-hover table-bordered shadow p-4 mb-4 bg-white" style="text-align:center;" id="student_records">
+        <tr class="subject">
+          <th>Roll No</th>
+          <th>Student Name</th>
+          <th>Maths</th>
+          <th>Sci</th>
+          <th>Phy</th>
+          <th>Total Marks</th>
+          <th>percentage</th>
+          <th>Action</th>
+        </tr>
+      </table>
+    </div>
+    <div class="container" style="text-align:center;">
+      <table class="table table-hover table-bordered container shadow p-4 mb-4 bg-white" style="text-align:center; width: 500px;">
+        <tr>
+          <th>Total students  :</th>
+          <td id="total_student"></td>
+        </tr>
+        <tr>
+          <th>Max Marks  :</th>
+          <td id="max"></td>
+        </tr>
+        <tr>
+          <th>Min Marks  :</th>
+          <td id="min"></td>
+        </tr>
+        <tr>
+          <th>Avg Marks  :</th>
+          <td id="avg"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="container-fluid">
+      <table class="border-bottom">
+      </table>
+    </div>
+    <script>
+      var rowNo = 1;
+      $(document).ready(function(){
+        $("#add_record").click(function(){
+          var rowHtml = '<tr>' +
+                          '<td><input name="rollNo" class="text-center"></td>' +
+                          '<td><input name="name" class="text-center"></td>' +
+                          '<td><input name="math" class="subject text-center" data-id="' + rowNo + '" id="math'  + rowNo + '"></td>' +
+                          '<td><input name="sci" class="subject text-center" data-id="' + rowNo + '" id="sci'  + rowNo + '"></td>' +
+                          '<td><input name="phy" class="subject text-center" data-id="' + rowNo + '" id="phy'  + rowNo + '"></td>' +
+                          '<td class="total" id="total' + rowNo + '"></td>' +
+                          '<td id="percentage' + rowNo + '"></td>' +
+                          '<td><button type="button" class="delete btn btn-danger">Delete</button></td>' +
+                        '</tr>';
+          $("#student_records").append(rowHtml);
+
+          $(".delete").click(function(){
+            if(confirm("Are You Sure..?")){
+              $(".jumbotron").css("border-bottom", "9px solid #dc3545 !important;");
+              $(this).closest('tr').remove();
+              $("#total_student").text(rowNo);
+              summary();
+
+            }
+          });
+          $(".delete").removeClass('delete');
+
+          $(".subject").change(function(){
+            var no = $(this).attr('data-id')
+            math = Number($('#math' + no).val());
+            sci = Number($('#sci' + no).val());
+            phy = Number($('#phy' + no).val());
+            total = math + sci + phy;
+            $('#total' + no).text(total);
+            $('#percentage' + no).text((total / 3).toFixed(2) + '%');
+            summary();
+          });
+          $(".subject").removeClass('subject');
+
+          rowNo++;
+          summary();
+        });
+      });
+
+
+      function summary(){
+        var min = 300, max = 0, total = 0, st, avg = 0;
+        var totals = $(".total")
+        var count = totals.length
+        for(var i = 0; i < count; i++){
+          st = Number(totals[i].innerHTML)
+          total += st
+
+          if(max < st){
+            max = st;
+          }
+          if(min > st){
+            min = st;
+          }
+        }
+
+        if(count > 0)
+          avg = total / count;
+        if(count <= 0)
+          min = 0;
+
+        $("#total_student").text(count);
+        $("#max").text(max);
+        $("#min").text(min);
+        $("#avg").text(avg.toFixed(2));
+      }
+    </script>
+  </body>
+</html>

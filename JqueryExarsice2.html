@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>jQueryExercise2</title>
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.css">
+    <script src="jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container shadow p-4 mb-4 bg-white" style="text-align: center;">
+      <table class="table container shadow p-4 mb-4 bg-white">
+      <tr>
+        <th>Num1</th>
+        <th></th>
+        <th>Num2</th>
+        <th>=</th>
+        <th>RESULT</th>
+      </tr>
+      <tr>
+        <td><input type="text" id="num1" placeholder="Enter Number 1" class="text-center"></td>
+        <td id="onchange"></td>
+        <td><input type="text" id="num2" placeholder="Enter Number 2" class="text-center"></td>
+        <td>=</td>
+        <td><input type="text" id="result" placeholder="RESULT" class="text-center" disabled></td>
+      </tr>
+
+      </table>
+      <div>
+        <button type="button" id="add" class="btn btn-primary px-5"> + </button>
+        <button type="button" id="subtract"  class="btn btn-success px-5"> - </button>
+        <button type="button" id="divide" class="btn btn-danger px-5"> / </button>
+        <button type="button" id="multiply" class="btn btn-warning px-5"> * </button>
+      </div>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $("#add").click(function(){
+        num1=Number($("#num1").val());
+        num2=Number($("#num2").val());
+        result=num1+num2;
+        $('#result').val(result);
+        $('#result').css("color", "blue");
+        $("#onchange").html("+");
+      });
+      $("#subtract").click(function(){
+        num1=Number($("#num1").val());
+        num2=Number($("#num2").val());
+        result=num1-num2;
+        $('#result').val(result);
+        $('#result').css("color", "Green");
+        $("#onchange").html("-");
+      });
+      $("#divide").click(function(){
+        num1=Number($("#num1").val());
+        num2=Number($("#num2").val());
+        result=num1/num2;
+        $('#result').val(result);
+        $('#result').css("color", "Red");
+        $("#onchange").html("/");
+      });
+      $("#multiply").click(function(){
+        num1=Number($("#num1").val());
+        num2=Number($("#num2").val());
+        result=num1*num2;
+        $('#result').val(result);
+        $('#result').css("color", "Yellow");
+        $("#onchange").html("*");
+      });
+    });
+
+    </script>
+
+  </body>
+</html>
